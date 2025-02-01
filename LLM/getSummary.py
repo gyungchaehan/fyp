@@ -3,7 +3,7 @@ import json
 
 client = OpenAI(
   base_url="https://openrouter.ai/api/v1",
-  api_key="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",
+  api_key="insert here",
 )
 
 summary = []
