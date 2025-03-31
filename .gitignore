@@ -1,5 +1,7 @@
-fyp_env/
+.env
 .DS_Store
 .LLM/PullAPI2.py
 .LLM/PullAPI4.py
 .LLM/PullAPI6.py
+__pycache__
+output/
