@@ -1,11 +1,66 @@
 import { ResponsiveLine } from "@nivo/line";
 import { useTheme } from "@mui/material";
 import { tokens } from "../theme";
-import { mockLineData as data } from "../data/mockData";
+import { mockLineData as data } from "../data/mockData"; //
 
-const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
+import React, { useState, useEffect } from "react";
+
+import yahooFinance from 'yahoo-finance';
+
+const getDateRange = (period) => {
+  // FIX RANGES - need to discuss
+  if (period === "y") {
+    return { from: "2022-01-01", to: "2022-12-31" };
+  } else if (period === "m") {
+    return { from: "2022-01-01", to: "2022-01-31" };
+  } else if (period === "d") {
+    return { from: "2022-01-01", to: "2022-01-07" };
+  } else {
+    // DEAFULT IS YEAR 
+    return { from: "2022-01-01", to: "2022-12-31" };
+  }
+};
+
+
+const LineChart = ({ isCustomLineColors = false, isDashboard = false, period="y"}) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  
+
+
+  //change code and feed to linechart , add period as a parameter to linechart  -DONT KNOW ID THIS PART WORKS
+  const [chartData, setChartData] = useState([]);
+
+  // Fetch the historical data when the component mounts or when the period prop changes.
+  useEffect(() => {
+    async function fetchData() {
+      const { from, to } = getDateRange(period);
+      try {
+        const history = await yahooFinance.historical({
+          symbol: "CT=F",
+          from: from,
+          to: to,
+          period: "d"
+        });
+        // Convert fetched history to the format expected by ResponsiveLine.
+        // Here we assume each record in history includes a 'date' and 'close' property.
+        const lineData = [
+          {
+            id: "CT=F",
+            data: history.map((item) => ({
+              x: new Date(item.date).toLocaleDateString(),
+              y: item.close
+            }))
+          }
+        ];
+        setChartData(lineData);
+      } catch (error) {
+        console.error("Error fetching historical data:", error);
+      }
+    }
+    fetchData();
+  }, [period]);
+ 
 
   return (
     <ResponsiveLine

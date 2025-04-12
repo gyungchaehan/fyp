@@ -11,10 +11,12 @@ import VideoBox from "../../components/VideoBox";
 import NewsBox from "../../components/NewsBox";
 import ProgressCircle from "../../components/ProgressCircle";
 import AccessTimeFilledOutlinedIcon from '@mui/icons-material/AccessTimeFilledOutlined';
+import { useState } from "react";
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [period, setPeriod] = useState("d");
 
   return (
     <Box m="20px">
@@ -111,11 +113,21 @@ const Dashboard = () => {
               </Typography>
             </Box>
             <Box>
-              <IconButton>
-                <DownloadOutlinedIcon
-                  sx={{ fontSize: "26px", color: colors.greenAccent[500] }}
-                />
-              </IconButton>
+              <Button onclick= {() => setPeriod("y")}>
+              <Typography
+                color={colors.greenAccent[500]}
+              > Year </Typography>
+              </Button>
+              <Button onclick= {() => setPeriod("m")}>
+              <Typography
+                color={colors.greenAccent[500]}
+              > Month </Typography>
+              </Button>
+              <Button onclick= {() => setPeriod("d")}>
+              <Typography
+                color={colors.greenAccent[500]}
+              > Day </Typography>
+              </Button>
             </Box>
           </Box>
           <Box height="250px" m="-20px 0 0 0">
