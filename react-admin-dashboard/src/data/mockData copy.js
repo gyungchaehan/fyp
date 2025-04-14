@@ -1,5 +1,24 @@
 import { tokens } from "../theme";
 
+import yahooFinance from 'yahoo-finance';
+
+
+yahooFinance.historical({
+  symbol: 'CT=F',
+  from: '2021-01-04',
+  to: '2024-10-01',
+  period: period 
+})
+  .then(history => {
+    console.log('Historical Data:', history);
+  })
+  .catch(err => {
+    console.error('Error fetching historical data:', err);
+  });
+  
+
+
+
 
 export const mockDataTeam = [
   {
