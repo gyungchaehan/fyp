@@ -8,7 +8,6 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import NewspaperOutlinedIcon from '@mui/icons-material/NewspaperOutlined';
 
@@ -115,7 +114,7 @@ const Sidebar = () => {
             />
             <Item
               title="About the Team"
-              to="/form"
+              to="/teamProfile"
               icon={<PeopleOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}

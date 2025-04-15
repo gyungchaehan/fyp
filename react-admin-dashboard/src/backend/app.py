@@ -1,4 +1,4 @@
-from fastapi import FastAPI, File, UploadFile, HTTPException
+from fastapi import FastAPI, File, UploadFile, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from sklearn.preprocessing import MinMaxScaler
@@ -26,11 +26,9 @@ price_scaler = None
 async def startup_event():
     global model, price_scaler
     model = load_model('model/best_model.h5')
-    
-    # Initialize scaler with reasonable defaults
+    # TO DO: LOAD LSTM MODEL
     price_scaler = MinMaxScaler(feature_range=(0, 1))
 
-# Add OPTIONS handler for preflight requests
 @app.options("/predict")
 async def options_predict():
     return JSONResponse(
@@ -82,6 +80,53 @@ async def predict(file: UploadFile = File(...)):
             content={
                 "status": "success",
                 "prediction": float(prediction[0][0])
+            },
+            headers={
+                "Access-Control-Allow-Origin": "http://localhost:3000",
+                "Access-Control-Expose-Headers": "*"
+            }
+        )
+
+    except HTTPException as he:
+        return JSONResponse(
+            status_code=he.status_code,
+            content={"error": he.detail},
+            headers={
+                "Access-Control-Allow-Origin": "http://localhost:3000"
+            }
+        )
+    except Exception as e:
+        return JSONResponse(
+            status_code=500,
+            content={"error": str(e)},
+            headers={
+                "Access-Control-Allow-Origin": "http://localhost:3000"
+            }
+        )
+    
+@app.options("/getRealTime")
+async def options_getRealTime():
+    return JSONResponse(
+        content=None,
+        headers={
+            "Access-Control-Allow-Origin": "http://localhost:3000",
+            "Access-Control-Allow-Methods": "POST, OPTIONS",
+            "Access-Control-Allow-Headers": "Content-Type"
+        }
+    )
+
+
+@app.post("/getRealTime")
+async def getRealTime(request: Request):
+    try:
+        data = await request.json()
+        print(data.get("try"))  # Debugging
+        
+        return JSONResponse(
+            content={
+                "status": "success",
+                "message": "Real-time prediction received",
+                "data": data
             },
             headers={
                 "Access-Control-Allow-Origin": "http://localhost:3000",

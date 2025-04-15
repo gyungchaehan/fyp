@@ -17,7 +17,7 @@ const VisuallyHiddenInput = styled('input')({
   width: 1,
 });
 
-const FileUploadButton = ({ onSuccess, onError }) => {
+const UserInput = ({ onSuccess, onError }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const fileInputRef = useRef(null);
@@ -78,7 +78,10 @@ const FileUploadButton = ({ onSuccess, onError }) => {
         fontWeight: "bold",
         fontSize: "11px",
         padding: "5px 10px",
-        mt: -0.5
+        mt: -0.5,
+        '&:hover': {
+            backgroundColor: colors.blueAccent[700]
+        }
       }}
       startIcon={<CloudUploadIcon />}
     >
@@ -93,4 +96,4 @@ const FileUploadButton = ({ onSuccess, onError }) => {
   );
 };
 
-export default FileUploadButton;
+export default UserInput;

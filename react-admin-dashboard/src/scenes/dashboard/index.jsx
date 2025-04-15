@@ -4,13 +4,11 @@ import { mockTransactions } from "../../data/mockData";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 import Header from "../../components/Header";
 import LineChart from "../../components/LineChart";
-import GeographyChart from "../../components/GeographyChart";
 import BarChart from "../../components/BarChart";
 import TimeBox from "../../components/TimeBox";
 import VideoBox from "../../components/VideoBox";
 import NewsBox from "../../components/NewsBox";
-import FileUploadButton from "../../components/FileUploadButton";
-import ProgressCircle from "../../components/ProgressCircle";
+import UserInput from "../../components/UserInput";
 import AccessTimeFilledOutlinedIcon from '@mui/icons-material/AccessTimeFilledOutlined';
 import { useState } from "react";
 
@@ -115,36 +113,12 @@ const Dashboard = () => {
                 fontWeight="600"
                 color={colors.grey[100]}
               >
-                Future Prediction PENDING MODEL
+                Our Test Set Prediction vs. Actual Prices
               </Typography>
-              <Typography
-                variant="h3"
-                fontWeight="bold"
-                color={colors.greenAccent[500]}
-              >
-                $59,342.32
-              </Typography>
-            </Box>
-            <Box>
-              <Button onclick= {() => setPeriod("y")}>
-              <Typography
-                color={colors.greenAccent[500]}
-              > Year </Typography>
-              </Button>
-              <Button onclick= {() => setPeriod("m")}>
-              <Typography
-                color={colors.greenAccent[500]}
-              > Month </Typography>
-              </Button>
-              <Button onclick= {() => setPeriod("d")}>
-              <Typography
-                color={colors.greenAccent[500]}
-              > Day </Typography>
-              </Button>
             </Box>
           </Box>
           <Box height="250px" m="-20px 0 0 0">
-            {/* <LineChart isDashboard={true} />  */}
+            <LineChart isDashboard={true} /> 
           </Box>
         </Box>
         <Box
@@ -232,7 +206,7 @@ const Dashboard = () => {
             <Typography color={colors.greenAccent[500]} variant="p" fontWeight={600} sx={{ mt: -0.5}}>
               Please ensure that there are at least 14 data points within it.
             </Typography>
-            <FileUploadButton onSuccess={handlePredictionSuccess} onError={handlePredictionError}/>
+            <UserInput onSuccess={handlePredictionSuccess} onError={handlePredictionError}/>
             {message && (<Typography 
               color={isError ? colors.redAccent[500] : colors.greenAccent[500]}
               variant="body1"

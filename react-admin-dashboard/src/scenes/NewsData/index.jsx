@@ -15,7 +15,6 @@ const NewsData = () => {
         header: true,
         download: true,
         complete: (results) => {
-          console.log(results)
           const formattedResults = results.data.map((item) => {
             const publishedAt = item['published_at'];
             const formattedPublishedAt = publishedAt 
@@ -30,7 +29,6 @@ const NewsData = () => {
             source: item['source'] 
             };
           }).filter(item => item.id && item.title && item.url && item.published_at && item.source); 
-          console.log(formattedResults);
           setRows(formattedResults); 
         },
         error: (error) => {
