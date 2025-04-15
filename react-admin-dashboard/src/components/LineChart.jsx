@@ -2,10 +2,10 @@ import { ResponsiveLine } from "@nivo/line";
 import { useTheme } from "@mui/material";
 import { tokens } from "../theme";
 import { mockLineData as data } from "../data/mockData"; //
-
+import axios from "axios";
 import React, { useState, useEffect } from "react";
 
-import yahooFinance from 'yahoo-finance';
+// import yahooFinance from 'yahoo-finance2';
 
 const getDateRange = (period) => {
   // FIX RANGES - need to discuss
@@ -22,45 +22,42 @@ const getDateRange = (period) => {
 };
 
 
-const LineChart = ({ isCustomLineColors = false, isDashboard = false, period="y"}) => {
+const LineChart = ({ isCustomLineColors = false, isDashboard = false, period="y", symbol = "MAREL.IC"}) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   
-
-
   //change code and feed to linechart , add period as a parameter to linechart  -DONT KNOW ID THIS PART WORKS
   const [chartData, setChartData] = useState([]);
 
   // Fetch the historical data when the component mounts or when the period prop changes.
-  useEffect(() => {
-    async function fetchData() {
-      const { from, to } = getDateRange(period);
-      try {
-        const history = await yahooFinance.historical({
-          symbol: "CT=F",
-          from: from,
-          to: to,
-          period: "d"
-        });
-        // Convert fetched history to the format expected by ResponsiveLine.
-        // Here we assume each record in history includes a 'date' and 'close' property.
-        const lineData = [
-          {
-            id: "CT=F",
-            data: history.map((item) => ({
-              x: new Date(item.date).toLocaleDateString(),
-              y: item.close
-            }))
-          }
-        ];
-        setChartData(lineData);
-      } catch (error) {
-        console.error("Error fetching historical data:", error);
-      }
-    }
-    fetchData();
-  }, [period]);
- 
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const { from, to } = getDateRange(period);
+  //     try {
+  //       const history = await yahooFinance.historical({
+  //         symbol: "CT=F",
+  //         from: from,
+  //         to: to,
+  //         period: "d"
+  //       });
+  //       // Convert fetched history to the format expected by ResponsiveLine.
+  //       // Here we assume each record in history includes a 'date' and 'close' property.
+  //       const lineData = [
+  //         {
+  //           id: "CT=F",
+  //           data: history.map((item) => ({
+  //             x: new Date(item.date).toLocaleDateString(),
+  //             y: item.close
+  //           }))
+  //         }
+  //       ];
+  //       setChartData(lineData);
+  //     } catch (error) {
+  //       console.error("Error fetching historical data:", error);
+  //     }
+  //   }
+  //   fetchData();
+  // }, [period]);
 
   return (
     <ResponsiveLine
