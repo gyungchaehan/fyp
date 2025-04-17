@@ -1,7 +1,7 @@
 # HKUST Final Year Project 24-25, KWT2
 
 ### Requirements
-python==3.11.x
+python==3.11.x  
 Node.js
 
 ### Webapp Usage Instructions
