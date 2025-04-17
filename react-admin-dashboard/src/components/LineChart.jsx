@@ -45,6 +45,7 @@ const LineChart = () => {
             data: predictedData
           }
         ]);
+        console.log(chartData);
       },
       error: (error) => {
         console.error("Error while parsing CSV:", error);
