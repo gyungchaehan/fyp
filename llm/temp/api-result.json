@@ -1,0 +1,59 @@
+{
+    "meta": {
+        "found": 9296058,
+        "returned": 3,
+        "limit": 3,
+        "page": 1
+    },
+    "data": [
+        {
+            "uuid": "a47ef62f-d9dc-4de6-9947-c0f250c3aaf7",
+            "title": "Our Best Stuff on Confirmation Hearings, Federal Buyouts, and J.D. Vance",
+            "description": "Three of Trump’s most controversial nominees faced questions from senators. - Start a free trial today for full access.",
+            "keywords": "",
+            "snippet": "Hello and happy Saturday. Is it just me, or was last week a very long month? The Office of Management and Budget released an order freezing certain federal gran...",
+            "url": "https://thedispatch.com/newsletter/weekly/our-best-stuff-on-confirmation-hearings-federal-buyouts-and-j-d-vance/",
+            "image_url": "https://thedispatch.com/wp-content/uploads/2025/02/GettyImages-2196122485.jpg?w=1024",
+            "language": "en",
+            "published_at": "2025-02-01T19:54:56.000000Z",
+            "source": "gfile.thedispatch.com",
+            "categories": [
+                "politics",
+                "general"
+            ],
+            "relevance_score": null
+        },
+        {
+            "uuid": "7b65b4a7-62be-49b6-b416-b662ff688f6d",
+            "title": "Harris, Osobor lead the way and Washington holds off Minnesota 71-68",
+            "description": "Breaking News, Sports, Manitoba, Canada",
+            "keywords": "",
+            "snippet": "MINNEAPOLIS (AP) — Tyler Harris scored 23 points, Great Osobor added 16 points and 10 rebounds, and Washington held off a second-half rally to defeat Minnesot...",
+            "url": "https://www.winnipegfreepress.com/uncategorized/2025/02/01/harris-osobor-lead-the-way-and-washington-holds-off-minnesota-71-68",
+            "image_url": "https://www.winnipegfreepress.com/wp-content/uploads/sites/2/2022/11/fb-og-image.png",
+            "language": "en",
+            "published_at": "2025-02-01T19:50:09.000000Z",
+            "source": "winnipegfreepress.com",
+            "categories": [
+                "general"
+            ],
+            "relevance_score": null
+        },
+        {
+            "uuid": "3688b11f-83dd-4082-943b-0563933f0d66",
+            "title": "Federal judge blocks enforcement of Louisiana’s police ‘buffer-zone’ law",
+            "description": "Breaking News, Sports, Manitoba, Canada",
+            "keywords": "",
+            "snippet": "BATON ROUGE, La. (AP) — A federal judge has blocked the enforcement of a Louisiana law that makes it a crime to approach within 25 feet (7.6 meters) of a work...",
+            "url": "https://www.winnipegfreepress.com/world/2025/02/01/federal-judge-blocks-enforcement-of-louisianas-police-buffer-zone-law",
+            "image_url": "https://www.winnipegfreepress.com/wp-content/uploads/sites/2/2022/11/fb-og-image.png",
+            "language": "en",
+            "published_at": "2025-02-01T19:48:41.000000Z",
+            "source": "winnipegfreepress.com",
+            "categories": [
+                "general"
+            ],
+            "relevance_score": null
+        }
+    ]
+}
