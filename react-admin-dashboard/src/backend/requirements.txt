@@ -1,5 +1,9 @@
 fastapi
 uvicorn
-tensorflow>=2.12.0
+tensorflow==2.12.0
 pandas
 python-multipart
+scikit-learn
+yfinance
+ollama
+vaderSentiment
