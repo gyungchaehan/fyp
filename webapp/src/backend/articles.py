@@ -52,7 +52,8 @@ def get_last_article_time(filename='news_data.jsonl'):
 
 
 if __name__ == '__main__':
-    filename = 'news_data.jsonl'
+    filename = os.path.join("data", "news_data.jsonl")
+    
     today = datetime.now().strftime('%Y-%m-%d')
     three_weeks_ago = (datetime.now() - timedelta(weeks=3)).strftime('%Y-%m-%d')
     last_time = get_last_article_time(filename) or three_weeks_ago

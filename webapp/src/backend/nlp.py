@@ -87,6 +87,6 @@ def process_jsonl(jsonl_file, ollama_api_url):
                 print(f"VADER produced error: {e}")
 
 
-jsonl_file = "news_data.jsonl"
+jsonl_file = os.path.join("data", "news_data.jsonl")
 ollama_api_url = "http://localhost:11434/api/generate"
 process_jsonl(jsonl_file, ollama_api_url)
