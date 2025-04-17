@@ -26,7 +26,6 @@ const NewsBox = ({}) => {
         }));
 
         setRows(tempRows);
-        console.log(tempRows); 
       } catch (error) {
         console.error("Error fetching news:", error);
       }

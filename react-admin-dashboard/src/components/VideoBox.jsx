@@ -16,7 +16,6 @@ const VideoBox = () => {
         const data = await response.json();
 
         if (data.items && data.items.length > 0) {
-          console.log(data.items[0].id.videoId);
           setVideoId(data.items[0].id.videoId);
           setVideoSource(data.items[0].snippet.channelTitle);
         } else {

@@ -8,7 +8,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { tokens } from "../../theme";
 import { useNavigate } from "react-router-dom";
 
-const FAQ = () => {
+const TeamProfile = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const navigate = useNavigate();
@@ -92,7 +92,7 @@ const FAQ = () => {
         </AccordionDetails>
       </Accordion>
       <Box display="flex" justifyContent="end" mt="20px">
-        <Button type="button" onClick={handleButtonClick} color="secondary" variant="contained" sx={{mb:1.5}}>
+        <Button type="button" onClick={handleButtonClick} color="secondary" variant="contained" marginBottom="100px">
           Submit a Question
         </Button>
       </Box>
@@ -100,4 +100,4 @@ const FAQ = () => {
   );
 };
 
-export default FAQ;
+export default TeamProfile;
