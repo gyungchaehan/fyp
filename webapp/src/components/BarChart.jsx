@@ -39,8 +39,8 @@ const BarChart = ({ isDashboard = false }) => {
           },
         },
       }}
-      keys={["hot dog", "burger", "sandwich", "kebab", "fries", "donut"]}
-      indexBy="country"
+      keys={["MSE", "RMSE", "MAE", "R2"]}
+      indexBy="Model"
       margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
       padding={0.3}
       valueScale={{ type: "linear" }}
@@ -74,17 +74,38 @@ const BarChart = ({ isDashboard = false }) => {
       axisRight={null}
       axisBottom={{
         tickSize: 5,
-        tickPadding: 5,
-        tickRotation: 0,
-        legend: isDashboard ? undefined : "country", // changed
+        tickPadding: 8,
+        tickRotation: -10,
+        renderTick: ({ value, x, y }) => (
+        <g transform={`translate(${x},${y})`}>
+          {value.split('\n').map((line, i) => (
+            <text
+              key={i}
+              x={0}
+              y={i * 10 + 12}  // 15px line height
+              textAnchor="middle"
+              dominantBaseline="middle"
+              fill={colors.grey[100]}
+              style={{
+                fontSize: 10,
+                fontWeight: 'bold',
+                mt: 1.5
+              }}
+            >
+              {line}
+            </text>
+          ))}
+        </g>
+      ),
+        legend: "Model Architecture",
         legendPosition: "middle",
-        legendOffset: 32,
+        legendOffset: 40,
       }}
       axisLeft={{
         tickSize: 5,
-        tickPadding: 5,
+        tickPadding: 3,
         tickRotation: 0,
-        legend: isDashboard ? undefined : "food", // changed
+        legend: "Metric Values",
         legendPosition: "middle",
         legendOffset: -40,
       }}
@@ -120,9 +141,14 @@ const BarChart = ({ isDashboard = false }) => {
         },
       ]}
       role="application"
-      barAriaLabel={function (e) {
-        return e.id + ": " + e.formattedValue + " in country: " + e.indexValue;
-      }}
+      barAriaLabel={e=>e.id+": "+e.value+" for: "+e.indexValue}
+      tooltip={({ id, value, indexValue }) => (
+        <div style={{ color: colors.primary[500], background: colors.grey[100], padding: '5px', borderRadius: '5px' }}>
+          <strong>{indexValue}</strong>
+          <br />
+          {id}: {value}
+        </div>
+      )}
     />
   );
 };
