@@ -73,8 +73,7 @@ const FAQ = () => {
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget.
+            We achieved an accuracy of 95% on our test set, with a Mean Absolute Error (MAE) of 0.7783 and a Mean Squared Error (MSE) of 1.0491. The model's predictions closely align with actual prices, demonstrating its reliability and effectiveness in forecasting crude oil prices.
           </Typography>
         </AccordionDetails>
       </Accordion>
@@ -86,8 +85,7 @@ const FAQ = () => {
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget.
+            Our project stands out due to its unique combination of time series analysis and sentiment analysis, providing a more comprehensive approach to crude oil price prediction. While many projects focus solely on historical data or sentiment analysis, our model integrates both aspects, resulting in improved accuracy and reliability.
           </Typography>
         </AccordionDetails>
       </Accordion>
@@ -101,3 +99,4 @@ const FAQ = () => {
 };
 
 export default FAQ;
+
