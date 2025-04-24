@@ -15,7 +15,7 @@ import os
 # -------------------------------------------
 # Read the CSV file while parsing the 'Date' column as datetime.
 # data = pd.read_csv(r"C:\Users\akumarag\Desktop\crude_oil_historical_data.csv", parse_dates=['Date'])
-data = pd.read_csv('updated_crude_oil.csv',parse_dates=['Date'])
+data = pd.read_csv('historical_oil_prices.csv',parse_dates=['Date'])
 
 # Set 'Date' as the index and sort by date.
 data.set_index('Date', inplace=True)
@@ -63,14 +63,14 @@ y = np.array(y)
 train_size = int(0.8 * len(X))
 X_train, X_test = X[:train_size], X[train_size:]
 y_train, y_test = y[:train_size], y[train_size:]
-print(X_train.shape)
 
 # -------------------------------------------
 # 5. Build the LSTM Model
 # -------------------------------------------
 model = Sequential()
 # First LSTM layer with return_sequences=True to allow stacking.
-model.add(Bidirectional(LSTM(units=50, return_sequences=True), input_shape=(X_train.shape[1], X_train.shape[2])))
+model.add(Bidirectional(LSTM(units=50, return_sequences=True, 
+                             input_shape=(X_train.shape[1], X_train.shape[2]))))
 model.add(Dropout(0.2))
 # Second LSTM layer (no return_sequences needed).
 model.add(LSTM(units=50, return_sequences=False))
@@ -80,8 +80,8 @@ model.add(Dense(units=25))
 model.add(Dense(units=1))  # Output layer: predicts the "Close" price
 
 # Compile the model using Mean Squared Error loss and the Adam optimizer.
-model.build(input_shape=(X_train.shape[1], X_train.shape[2]))
 model.compile(optimizer='adam', loss='mean_squared_error')
+model.build(input_shape=(None, X_train.shape[1], X_train.shape[2]))  # Explicitly build the model
 model.summary()
 
 # -------------------------------------------
@@ -97,7 +97,7 @@ history = model.fit(
     callbacks=[early_stop]
 )
 
-model.save('lstm_model.h5')
+model.save('best_model/lstm_model.h5')
 print("Model saved as lstm_model.h5")
 
 # -------------------------------------------
@@ -158,5 +158,6 @@ predictions_df = pd.DataFrame({
 })
 
 # Save the DataFrame to a CSV file.
-predictions_df.to_csv('predicted_oil_prices_sq.csv', index=False)
+predictions_df.to_csv('best_model/predicted_oil_prices.csv', index=False)
+
 print("Predicted prices for the entire dataset saved to predicted_oil_prices.csv")
