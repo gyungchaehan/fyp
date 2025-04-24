@@ -23,6 +23,7 @@ from keras import backend as K
 from tensorflow.keras.callbacks import ModelCheckpoint, CSVLogger, EarlyStopping
 from tensorflow.keras.optimizers import Adam
 from joblib import dump
+from pathlib import Path
 
 # Constants
 SEED = 42
@@ -41,10 +42,18 @@ if not sys.warnoptions:
 
 
 class OilPricePredictor:
-    def __init__(self):
+    def __init__(self, base_dir=Path('.')):
         self.feature_scaler = None
         self.label_scaler = None
         self.model = None
+        self.base_dir = base_dir
+        self.best_model_path = self.base_dir / 'best_model'
+        self.model_artifacts_path = self.base_dir / 'model_artifacts'
+        
+        # Create directories if they don't exist
+        self.best_model_path.mkdir(parents=True, exist_ok=True)
+        self.model_artifacts_path.mkdir(parents=True, exist_ok=True)
+
 
     def load_data(self, filepath):
         """Load dataset from CSV file"""
@@ -187,7 +196,7 @@ class OilPricePredictor:
         """Train the model with callbacks"""
         callbacks = [
             ModelCheckpoint(
-                'best_model/best_model.h5',
+                self.best_model_path / 'best_model.h5',  
                 monitor='val_loss',
                 save_best_only=True,
                 verbose=0
@@ -197,7 +206,7 @@ class OilPricePredictor:
                 patience=15,
                 restore_best_weights=True
             ),
-            CSVLogger('best_model/training_log.csv')
+            CSVLogger(self.best_model_path / 'training_log.csv')
         ]
 
         history = self.model.fit(
@@ -235,10 +244,10 @@ class OilPricePredictor:
             'Actual_Price': y_true.flatten(),
             'Predicted_Price': y_pred.flatten()
         })
-        results_df.to_csv('best_model/predictions_results.csv', index=False)
+        results_df.to_csv(self.best_model_path / 'predictions_results.csv', index=False)
 
         metrics_df = pd.DataFrame(list(metrics.items()), columns=['Metric', 'Value'])
-        metrics_df.to_csv('best_model/metrics_results.csv', index=False)
+        metrics_df.to_csv(self.best_model_path / 'metrics_results.csv', index=False)
 
         return metrics, y_true, y_pred
 
@@ -251,8 +260,8 @@ class OilPricePredictor:
         
         # Save scalers
         os.makedirs('model_artifacts', exist_ok=True)
-        dump(self.feature_scaler, 'model_artifacts/feature_scaler.joblib')
-        dump(self.label_scaler, 'model_artifacts/label_scaler.joblib')
+        dump(self.feature_scaler, self.model_artifacts_path / 'feature_scaler.joblib')
+        dump(self.label_scaler, self.model_artifacts_path / 'label_scaler.joblib')
         
         # Prepare sequences
         X_train, X_test, y_train, y_test = self.create_sequences(features, label)
@@ -261,8 +270,8 @@ class OilPricePredictor:
         self.model = self.build_model((X_train.shape[1], X_train.shape[2]))
         self.model.summary()
         
-        # history = self.train_model(X_train, y_train, X_test, y_test)
-        # print(f"Training stopped after {len(history.history['loss'])} epochs")
+        history = self.train_model(X_train, y_train, X_test, y_test)
+        print(f"Training stopped after {len(history.history['loss'])} epochs")
         
         # Evaluate
         metrics, y_true, y_pred = self.evaluate(X_test, y_test)
