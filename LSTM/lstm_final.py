@@ -7,6 +7,8 @@ from tensorflow.keras.layers import LSTM, Dense, Dropout, Bidirectional
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.callbacks import EarlyStopping
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+from joblib import dump
+import os
 
 # -------------------------------------------
 # 1. Read CSV and Interpolate Missing Data
@@ -36,6 +38,8 @@ data_features = data_interpolated[features]
 # Scale the data using MinMaxScaler to scale values between 0 and 1.
 scaler = MinMaxScaler(feature_range=(0, 1))
 scaled_data = scaler.fit_transform(data_features)
+os.makedirs('model_artifacts', exist_ok=True)
+dump(scaler, 'model_artifacts/lstm_feature_scaler.joblib')
 
 # -------------------------------------------
 # 3. Create Sequences for the LSTM Model
