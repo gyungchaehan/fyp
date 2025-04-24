@@ -10,9 +10,6 @@ from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from joblib import dump
 import os
 
-# -------------------------------------------
-# 1. Read CSV and Interpolate Missing Data
-# -------------------------------------------
 # Read the CSV file while parsing the 'Date' column as datetime.
 data = pd.read_csv('updated_crude_oil.csv',parse_dates=['Date'])
 
@@ -27,9 +24,7 @@ data = data.reindex(full_date_range)
 # Interpolate the missing values using time-based interpolation.
 data_interpolated = data.interpolate(method='time')
 
-# -------------------------------------------
-# 2. Preprocess and Scale Data
-# -------------------------------------------
+# Preprocess and Scale Data
 # Select the relevant features.
 features = ['Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume']
 data_features = data_interpolated[features]
@@ -40,9 +35,7 @@ scaled_data = scaler.fit_transform(data_features)
 os.makedirs('model_artifacts', exist_ok=True)
 dump(scaler, 'model_artifacts/lstm_feature_scaler.joblib')
 
-# -------------------------------------------
-# 3. Create Sequences for the LSTM Model
-# -------------------------------------------
+# Create Sequences for the LSTM Model
 # Define how many past days to use for prediction (sequence length)
 sequence_length = 14
 
@@ -56,16 +49,12 @@ for i in range(sequence_length, len(scaled_data)):
 X = np.array(X)
 y = np.array(y)
 
-# -------------------------------------------
-# 4. Split the Data into Training and Testing Sets
-# -------------------------------------------
+# Split the Data into Training and Testing Sets
 train_size = int(0.8 * len(X))
 X_train, X_test = X[:train_size], X[train_size:]
 y_train, y_test = y[:train_size], y[train_size:]
 
-# -------------------------------------------
-# 5. Build the LSTM Model
-# -------------------------------------------
+# Build the LSTM Model
 model = Sequential()
 # First LSTM layer with return_sequences=True to allow stacking.
 model.add(Bidirectional(LSTM(units=50, return_sequences=True, 
@@ -83,9 +72,7 @@ model.compile(optimizer='adam', loss='mean_squared_error')
 model.build(input_shape=(None, X_train.shape[1], X_train.shape[2]))  # Explicitly build the model
 model.summary()
 
-# -------------------------------------------
-# 6. Train the Model
-# -------------------------------------------
+# Train the Model
 early_stop = EarlyStopping(monitor='val_loss', patience=10, restore_best_weights=True)
 history = model.fit(
     X_train,
@@ -99,9 +86,7 @@ history = model.fit(
 model.save('best_model/lstm_model.h5')
 print("Model saved as lstm_model.h5")
 
-# -------------------------------------------
-# 7. Make Predictions and Inverse Transform the Results
-# -------------------------------------------
+# Make Predictions and Inverse Transform the Results
 # Predict the test set.
 predictions = model.predict(X_test)
 
@@ -131,9 +116,7 @@ print("Root Mean Squared Error (RMSE):", rmse)
 print("Mean Absolute Error (MAE):", mae)
 print("R-squared (R²):", r2)
 
-# -------------------------------------------
-# 8. Generate Predictions for the Entire Dataset and Save to CSV
-# -------------------------------------------
+# Generate Predictions for the Entire Dataset and Save to CSV
 # Generate predictions for all sequences.
 predictions_all = model.predict(X)
 

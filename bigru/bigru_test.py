@@ -17,10 +17,7 @@ INPUT_LENGTH = 14
 OUTPUT_LENGTH = 1
 DATA_PATH = "input_bigru.csv"
 
-# -------------------------------
 # Test Data Generation
-# -------------------------------
-
 def generate_test_data(num_samples=100):
     """Generate synthetic oil price data with sentiment scores"""
     dates = pd.date_range(start='2020-01-01', periods=num_samples)
@@ -32,10 +29,7 @@ def generate_test_data(num_samples=100):
     }
     return pd.DataFrame(data)
 
-# -------------------------------
 # Test Cases
-# -------------------------------
-
 def test_data_loading_and_feature_engineering():
     """Test data loading and feature engineering pipeline"""
     test_data = generate_test_data(50)
@@ -227,10 +221,7 @@ def test_training_and_evaluation(tmpdir):
     assert (preds_df['Actual_Price'] > 0).all(), "Prices should be positive"
     assert (preds_df['Predicted_Price'] > 0).all(), "Predictions should be positive"
     
-# -------------------------------
 # Main Test Execution
-# -------------------------------
-
 if __name__ == "__main__":
     # Run tests with temporary directory
     with tempfile.TemporaryDirectory() as tmpdir:
