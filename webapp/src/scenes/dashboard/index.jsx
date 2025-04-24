@@ -29,6 +29,15 @@ const Dashboard = () => {
     setIsError(true);
   };
 
+  const getFinalReport = () => {
+    const url = "https://docs.google.com/document/d/1GRALeYcTmZsRx5DV2MKb5uasJWIb5295u58rD4qHkEY/export?format=pdf";
+    const link = document.createElement("a");
+    link.href = url;
+    link.target = "_blank";
+    link.download = "FYP_Final_Report.pdf"; // Suggested file name
+    link.click();
+  };
+
   return (
     <Box m="20px">
       {/* HEADER */}
@@ -37,6 +46,7 @@ const Dashboard = () => {
 
         <Box>
           <Button
+            onClick={getFinalReport}
             sx={{
               backgroundColor: colors.blueAccent[700],
               color: colors.grey[100],
@@ -46,7 +56,7 @@ const Dashboard = () => {
             }}
           >
             <DownloadOutlinedIcon sx={{ mr: "10px" }} />
-            Download Reports
+            Download Report
           </Button>
         </Box>
       </Box>
