@@ -14,7 +14,7 @@ const NewsBox = ({}) => {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const response = await fetch("https://newsapi.org/v2/everything?apiKey=2224652412294d18b7826e8bf867ae34&q=Oil%20Price&pageSize=10");
+        const response = await fetch("https://newsapi.org/v2/everything?&q=Oil%20Price&pageSize=10");
         const data = await response.json();
 
         const tempRows = data.articles.map((article, index) => ({

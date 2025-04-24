@@ -12,7 +12,7 @@ const VideoBox = () => {
   useEffect(() => {
     const fetchVideo = async () => {
       try {
-        const response = await fetch("https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&order=relevance&q=Oil%2520price%2520news&relevanceLanguage=en&type=video&videoEmbeddable=true&key=AIzaSyD2uJTu9s8MyERPf5AXMC_9iSCPD-BhhOw");
+        const response = await fetch("https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&order=relevance&q=Oil%2520price%2520news&relevanceLanguage=en&type=video&videoEmbeddable=true");
         const data = await response.json();
 
         if (data.items && data.items.length > 0) {

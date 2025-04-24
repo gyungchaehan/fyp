@@ -58,7 +58,6 @@ def start():
     three_weeks_ago = (datetime.now() - timedelta(weeks=3)).strftime('%Y-%m-%d')
     last_time = get_last_article_time(filename) or three_weeks_ago
 
-    api_token = 'AWJExEL2Iynpvl2zg5anHdC79MfYXEzSKPaNz6bb'
     rate_limit = 3
     all_news_data = []
 
