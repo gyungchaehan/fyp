@@ -7,3 +7,5 @@ scikit-learn
 yfinance
 ollama
 vaderSentiment
+newspaper3k
+lxml[html_clean]
